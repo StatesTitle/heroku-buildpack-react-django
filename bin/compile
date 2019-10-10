@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
+indent() {
+  sed -u 's/^/       /'
+}
 
 BUILD_DIR=${1:-}
 #CACHE_DIR=${2:-}
@@ -27,10 +30,15 @@ BUILD_DIR=${1:-}
 ##  pwd
 #fi
 
+echo "-----> Looking for lender_onboarding_ui"
+
 # TODO: change this from hardcoding lender_onboarding_ui to searching all the $folders for a package.json and then
 #  running install & build if one is found
 if [ -d "$BUILD_DIR/lender_onboarding_ui" ]; then
+  echo "lender_onboarding_ui found. Running yarn install and yarn build." | indent
   yarn --cwd "$BUILD_DIR/lender_onboarding_ui" install
   yarn --cwd "$BUILD_DIR/lender_onboarding_ui" build
+else
+  echo "lender_onboarding_ui not found. Skipping yarn install and yarn build." | indent
 fi
 exit 0

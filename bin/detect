@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# bin/detect <build-dir>
+
+echo "React Apps served by Django"
+exit 0

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+
+BUILD_DIR=${1:-}
+#CACHE_DIR=${2:-}
+#ENV_DIR=${3:-}
+
+# This is meant to be generalized to a monorepo so that it will install and build every react app that's not part of yarn workspaces.
+# That functionality is incomplete, so we've hardcoded the one such application that we currently have and commented out the rest.
+#
+#if [ -e "$BUILD_DIR/package.json" ]; then
+#  # get the yarn workspaces folders/patterns and store them in an array
+#  workspace_patterns=( $( jq -r ".workspaces[]" < "$BUILD_DIR/package.json" ) )
+#  # get the names of all the folders in the monorepo and store them in an array
+#  folders=()
+#  while IFS='' read -r line; do folders+=("$line"); done < <( cd "$BUILD_DIR" && ls -d -- */)
+#
+#  # check if any of the folders match the yarn workspaces, and if so, exclude them from the list
+#  # TODO: get this part working -- delete folders matching the workspace patterns from the list
+#  for f in $folders
+#  do
+#    [[ $f =~ $workspace_patterns[0] ]] && echo "$f"
+#
+#
+#  done
+##  pwd
+#fi
+
+# TODO: change this from hardcoding lender_onboarding_ui to searching all the $folders for a package.json and then running this.
+yarn --cwd "$BUILD_DIR/lender_onboarding_ui" install
+yarn --cwd "$BUILD_DIR/lender_onboarding_ui" build

@@ -31,6 +31,17 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
+
+####### some of my own code, not copied from heroku/nodejs
+echo "-----> Looking for lender_onboarding_ui"
+
+# TODO: change this from hardcoding lender_onboarding_ui to searching all the $folders for a package.json and then
+#  running install & build if one is found
+if [ -d "$BUILD_DIR/lender_onboarding_ui" ]; then
+    echo "lender_onboarding_ui found. Running yarn install and yarn build." | indent
+
+####### end my own code. back to heroku/nodejs
+
 # shellcheck source=lib/stdlib.sh
 source "$BP_DIR/lib/stdlib.sh"
 # shellcheck source=lib/output.sh
@@ -116,12 +127,8 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
 ##  pwd
 #fi
 
-echo "-----> Looking for lender_onboarding_ui"
 
-# TODO: change this from hardcoding lender_onboarding_ui to searching all the $folders for a package.json and then
-#  running install & build if one is found
-if [ -d "$BUILD_DIR/lender_onboarding_ui" ]; then
-  echo "lender_onboarding_ui found. Running yarn install and yarn build." | indent
+
   curl -o- -L https://yarnpkg.com/install.sh | bash
   export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
   yarn --cwd "$BUILD_DIR/lender_onboarding_ui" install

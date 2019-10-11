@@ -1,0 +1,2 @@
+export PATH="../underwriter/.heroku/node/bin:../underwriter/.heroku/yarn/bin:$PATH:../underwriter/node_modules/.bin"
+export NODE_HOME="../underwriter/.heroku/node"

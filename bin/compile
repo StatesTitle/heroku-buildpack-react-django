@@ -130,25 +130,34 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
 function install_and_build {
   dirs=( "$@" )
   for dir in ${dirs[@]}; do
-    if [ -e "$dir/package.json" ]; then
+    dir_path="${BUILD_DIR}/${dir}"
+
+    if [ -e "$dir_path/package.json" ]; then
       echo "${dir} found. Running yarn install and yarn build." | indent
-      yarn --cwd "$dir" install
-      yarn --cwd "$dir" build
+      yarn --cwd "$dir_path" install
+      yarn --cwd "$dir_path" build
     fi
     done
 }
 
 # get the names of all the folders in the monorepo and store them in an array
-  folders=()
-  while IFS='' read -r line; do
-    folders+=("$line");
-    done < <( cd "$BUILD_DIR" && ls -d -- */)
+folders=()
+while IFS='' read -r line; do
+  folders+=("$line");
+  done < <( cd "$BUILD_DIR" && ls -d -- */)
 
 if [ -e "$BUILD_DIR/package.json" ]; then
   # get the yarn workspaces folders/patterns and store them in an array
   workspace_patterns=( $( jq -r ".workspaces[]" < "$BUILD_DIR/package.json" ) )
 
-  filtered_folders=( ${folders[@]/$workspace_patterns} )
+  # removing the yarn workspaces folder from the main directory folder array
+  filtered_folders="${folders[@]}"
+  for ws_folder in ${workspace_patterns[@]}
+    do
+        f=$ws_folder/
+       filtered_folders=( "${filtered_folders[@]/$f}" )
+    done
+
   install_and_build ${filtered_folders[@]}
 else
   install_and_build ${folders[@]}

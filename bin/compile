@@ -36,7 +36,7 @@ BP_DIR=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
 # TODO: change this from hardcoding lender_onboarding_ui to searching all the $folders for a package.json and then
 #  running install & build if one is found
-if [ -d "$BUILD_DIR/lender_onboarding_ui" ] || [ -d "$BUILD_DIR/integration_admin_ui" ]; then
+if [ -d "$BUILD_DIR/lender_onboarding_ui" ] || [ -d "$BUILD_DIR/integration_admin_ui" ] || || [ -d "$BUILD_DIR/instant_order_app" ]; then
     echo "Project/s found to run yarn install and yarn build." | indent
 
 ####### end my own code. back to heroku/nodejs
@@ -136,6 +136,12 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
     echo "integration_admin_ui found. Running yarn install and yarn build." | indent
     yarn --cwd "$BUILD_DIR/integration_admin_ui" install
     yarn --cwd "$BUILD_DIR/integration_admin_ui" build
+  fi
+
+  if [ -d "$BUILD_DIR/instant_order_app" ]; then
+    echo "instant_order_app found. Running yarn install and yarn build." | indent
+    yarn --cwd "$BUILD_DIR/instant_order_app" install
+    yarn --cwd "$BUILD_DIR/instant_order_app" build
   fi
 
 else

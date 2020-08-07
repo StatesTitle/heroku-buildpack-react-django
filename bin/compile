@@ -140,8 +140,9 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
 
   if [ -d "$BUILD_DIR/instant_order_app" ]; then
     echo "instant_order_app found. Running yarn install and yarn build." | indent
-    yarn --cwd "$BUILD_DIR/instant_order_app" install
-    yarn --cwd "$BUILD_DIR/instant_order_app" build
+    yarn install
+    yarn workspace @shared/components build
+    yarn workspace instant_order_app build
   fi
 
 else

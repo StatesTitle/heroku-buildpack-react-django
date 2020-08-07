@@ -23,6 +23,8 @@ create_default_env() {
   export NODE_MODULES_CACHE=${NODE_MODULES_CACHE:-true}
   export NODE_ENV=${NODE_ENV:-production}
   export NODE_VERBOSE=${NODE_VERBOSE:-false}
+  # StatesTitle/cplummer - don't block devDependencies from installing
+  export YARN_PRODUCTION=${YARN_PRODUCTION:-false}
 }
 
 create_build_env() {

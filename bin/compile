@@ -126,6 +126,14 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
 ##  pwd
 #fi
 
+  yarn install
+
+  if [ -d "$BUILD_DIR/instant_order_app" ]; then
+    echo "instant_order_app found. Running yarn install and yarn build." | indent
+    yarn workspace @shared/components build
+    yarn workspace instant_order_app build
+  fi
+
   if [ -d "$BUILD_DIR/lender_onboarding_ui" ]; then
     echo "lender_onboarding_ui found. Running yarn install and yarn build." | indent
     yarn --cwd "$BUILD_DIR/lender_onboarding_ui" install
@@ -136,13 +144,6 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
     echo "integration_admin_ui found. Running yarn install and yarn build." | indent
     yarn --cwd "$BUILD_DIR/integration_admin_ui" install
     yarn --cwd "$BUILD_DIR/integration_admin_ui" build
-  fi
-
-  if [ -d "$BUILD_DIR/instant_order_app" ]; then
-    echo "instant_order_app found. Running yarn install and yarn build." | indent
-    yarn install
-    yarn workspace @shared/components build
-    yarn workspace instant_order_app build
   fi
 
 else

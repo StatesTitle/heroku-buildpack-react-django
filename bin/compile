@@ -126,6 +126,12 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
 ##  pwd
 #fi
 
+  if [ -d "$BUILD_DIR/ts_shared/logger" ]; then
+    echo "ts_shared/logger found. Running yarn install and yarn build." | indent
+    yarn --cwd "$BUILD_DIR/ts_shared/logger" install
+    yarn --cwd "$BUILD_DIR/ts_shared/logger" build
+  fi
+
   if [ -d "$BUILD_DIR/lender_onboarding_ui" ]; then
     echo "lender_onboarding_ui found. Running yarn install and yarn build." | indent
     yarn --cwd "$BUILD_DIR/lender_onboarding_ui" install

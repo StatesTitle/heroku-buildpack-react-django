@@ -114,6 +114,7 @@ install_yarn "$BUILD_DIR/.heroku/yarn" "$yarn_engine"
   # clear out the node_modules now that the build is finished
   # since everything that was built is now static files
   find "$BUILD_DIR" -type d -name node_modules -prune -exec rm -rf {} \;
+
 else
   echo "No project found. Skipping yarn install and yarn build." | indent
 fi

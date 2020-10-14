@@ -34,7 +34,7 @@ resolve() {
 
 install_yarn() {
   local dir="$1"
-  local version=${2:-1.x}
+  local version='1.22.5'
   local number url code resolve_result
 
   echo "Resolving yarn version $version..."
@@ -64,7 +64,7 @@ install_yarn() {
 }
 
 install_nodejs() {
-  local version=${1:-12.x}
+  local version='12.19.0'
   local dir="${2:?}"
   local code os cpu resolve_result
 

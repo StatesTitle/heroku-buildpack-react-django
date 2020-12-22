@@ -34,7 +34,7 @@ resolve() {
 
 install_yarn() {
   local dir="$1"
-  local build_dir="$3"
+  local build_dir="$2"
   local version=$(read_json "$build_dir/package.json" ".engines.yarn")
   local number url code resolve_result
 
@@ -65,8 +65,8 @@ install_yarn() {
 }
 
 install_nodejs() {
-  local dir="${2:?}"
-  local build_dir="$3"
+  local dir="${1:?}"
+  local build_dir="$2"
   local version=$(read_json "$build_dir/package.json" ".engines.node")
   local code os cpu resolve_result
 

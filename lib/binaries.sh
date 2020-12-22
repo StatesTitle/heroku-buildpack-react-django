@@ -64,7 +64,7 @@ install_yarn() {
 }
 
 install_nodejs() {
-  local build_dir="$1"
+  local build_dir="$2"
   local dir="${2:?}"
   local version=$(read_json "$build_dir/package.json" ".engines.node")
   local code os cpu resolve_result

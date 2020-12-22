@@ -34,7 +34,7 @@ resolve() {
 
 install_yarn() {
   local dir="$1"
-  local version='1.22.5'
+  local version=$(read_json "$dir/package.json" ".engines.yarn")
   local number url code resolve_result
 
   echo "Resolving yarn version $version..."
@@ -64,8 +64,8 @@ install_yarn() {
 }
 
 install_nodejs() {
-  local version='12.19.0'
   local dir="${2:?}"
+  local version=$(read_json "$dir/package.json" ".engines.node")
   local code os cpu resolve_result
 
   os=$(get_os)
